@@ -64,7 +64,9 @@ libmm-vdec-inc          += $(TOP)/frameworks/native/include/media/hardware
 libmm-vdec-inc      	+= $(TOP)/hardware/qcom/media/sdm845/libc2dcolorconvert
 libmm-vdec-inc      	+= $(TARGET_OUT_HEADERS)/mm-video/SwVdec
 libmm-vdec-inc      	+= $(TARGET_OUT_HEADERS)/mm-video/swvdec
+ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
 libmm-vdec-inc      	+= $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+endif
 libmm-vdec-inc      	+= $(TOP)/frameworks/native/libs/nativebase/include
 
 ifeq ($(PLATFORM_SDK_VERSION), 18)  #JB_MR2
@@ -73,7 +75,9 @@ libmm-vdec-inc += $(TOP)/hardware/qcom/media/sdm845/libstagefrighthw
 endif
 
 # Common Dependencies
+ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
 libmm-vdec-add-dep := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+endif
 
 ifeq ($(call is-platform-sdk-version-at-least, 19),true)
 # This feature is enabled for Android KK+
