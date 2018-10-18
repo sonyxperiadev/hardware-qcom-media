@@ -1,0 +1,1 @@
+# hardware-qcom-media-sdm845
