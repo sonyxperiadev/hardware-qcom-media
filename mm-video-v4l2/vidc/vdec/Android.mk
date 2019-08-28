@@ -82,18 +82,18 @@ include $(CLEAR_VARS)
 libmm-vdec-inc          := $(LOCAL_PATH)/inc
 libmm-vdec-inc          += $(TOP)/system/core/libion/include
 libmm-vdec-inc          += $(TOP)/system/core/libion/kernel-headers
-libmm-vdec-inc          += $(TOP)/hardware/qcom/media/mm-video-v4l2/vidc/common/inc
-libmm-vdec-inc          += $(TOP)/hardware/qcom/media/mm-core/inc
+libmm-vdec-inc          += $(QCOM_MEDIA_ROOT)/mm-video-v4l2/vidc/common/inc
+libmm-vdec-inc          += $(QCOM_MEDIA_ROOT)/mm-core/inc
 libmm-vdec-inc          += $(TARGET_OUT_HEADERS)/qcom/display
 libmm-vdec-inc          += $(TARGET_OUT_HEADERS)/adreno
-libmm-vdec-inc          += $(TOP)/hardware/qcom/media/libc2dcolorconvert
-libmm-vdec-inc          += $(TOP)/hardware/qcom/media/hypv-intercept
+libmm-vdec-inc          += $(QCOM_MEDIA_ROOT)/libc2dcolorconvert
+libmm-vdec-inc          += $(QCOM_MEDIA_ROOT)/hypv-intercept
 libmm-vdec-inc          += $(TARGET_OUT_HEADERS)/mm-video/SwVdec
 libmm-vdec-inc          += $(TARGET_OUT_HEADERS)/mm-video/swvdec
 
 ifeq ($(PLATFORM_SDK_VERSION), 18)  #JB_MR2
 libmm-vdec-def += -DANDROID_JELLYBEAN_MR2=1
-libmm-vdec-inc += $(TOP)/hardware/qcom/media/libstagefrighthw
+libmm-vdec-inc += $(QCOM_MEDIA_ROOT)/libstagefrighthw
 endif
 
 # Common Dependencies

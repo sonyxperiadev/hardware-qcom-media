@@ -27,11 +27,11 @@ endif
 libmm-vidc-inc      := $(LOCAL_PATH)/inc
 libmm-vidc-inc      += $(TOP)/system/core/libion/include
 libmm-vidc-inc      += $(TOP)/system/core/libion/kernel-headers
-libmm-vidc-inc      += $(TOP)/hardware/qcom/media/mm-core/inc
-libmm-vidc-inc      += $(TOP)/hardware/qcom/media/mm-video-v4l2/vidc/vdec/inc
-libmm-vidc-inc      += $(TOP)/hardware/qcom/media/mm-video-v4l2/vidc/venc/inc
+libmm-vidc-inc      += $(QCOM_MEDIA_ROOT)/mm-core/inc
+libmm-vidc-inc      += $(QCOM_MEDIA_ROOT)/mm-video-v4l2/vidc/vdec/inc
+libmm-vidc-inc      += $(QCOM_MEDIA_ROOT)/mm-video-v4l2/vidc/venc/inc
 libmm-vidc-inc      += $(TARGET_OUT_HEADERS)/qcom/display
-libmm-vidc-inc      += $(TOP)/hardware/qcom/media/libc2dcolorconvert
+libmm-vidc-inc      += $(QCOM_MEDIA_ROOT)/libc2dcolorconvert
 ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
 libmm-vidc-inc      += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 LOCAL_ADDITIONAL_DEPENDENCIES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
