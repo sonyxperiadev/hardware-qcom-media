@@ -68,7 +68,6 @@ libmm-venc-inc      += hardware/qcom/media/libplatformconfig
 libmm-venc-inc      += $(TARGET_OUT_HEADERS)/adreno
 libmm-venc-inc      += hardware/qcom/media/libc2dcolorconvert
 libmm-venc-inc      += $(TARGET_OUT_HEADERS)/libvqzip
-libmm-venc-inc      += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 libmm-venc-inc      += $(TOP)/frameworks/native/libs/nativewindow/include
 libmm-venc-inc      += $(TOP)/frameworks/native/libs/nativebase/include
 libmm-venc-inc      += $(TOP)/frameworks/native/libs/arect/include
@@ -82,7 +81,10 @@ libmm-venc-inc      += hardware/libhardware/include/hardware
 endif
 
 # Common Dependencies
+ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
+libmm-venc-inc      += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 libmm-venc-add-dep  := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+endif
 
 # ---------------------------------------------------------------------------------
 # 			Make the Shared library (libOmxVenc)
