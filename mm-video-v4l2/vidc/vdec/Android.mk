@@ -115,13 +115,7 @@ LOCAL_HEADER_LIBRARIES := \
         libnativebase_headers \
         libutils_headers \
         libhardware_headers \
-        display_headers
-
-ifeq ($(TARGET_USES_GRALLOC1), true)
-LOCAL_HEADER_LIBRARIES += display_intf_headers_gralloc1
-else
-LOCAL_HEADER_LIBRARIES += display_intf_headers_gralloc
-endif
+        display_intf_headers
 
 LOCAL_C_INCLUDES                += $(libmm-vdec-inc)
 LOCAL_ADDITIONAL_DEPENDENCIES   := $(libmm-vdec-add-dep)
@@ -163,14 +157,7 @@ LOCAL_HEADER_LIBRARIES := \
         libnativebase_headers \
         libutils_headers \
         libhardware_headers \
-        display_headers
-
-ifeq ($(TARGET_USES_GRALLOC1), true)
-LOCAL_HEADER_LIBRARIES += display_intf_headers_gralloc1
-else
-LOCAL_HEADER_LIBRARIES += display_intf_headers_gralloc
-endif
-
+        display_intf_headers
 
 LOCAL_C_INCLUDES              += $(libmm-vdec-inc)
 LOCAL_ADDITIONAL_DEPENDENCIES := $(libmm-vdec-add-dep)
