@@ -16,7 +16,7 @@ endif
 LOCAL_HEADER_LIBRARIES := \
         libutils_headers \
         libhardware_headers \
-        display_intf_headers
+        display_headers
 
 LOCAL_SHARED_LIBRARIES := liblog libdl
 
