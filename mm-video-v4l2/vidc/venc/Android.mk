@@ -84,12 +84,6 @@ ifneq ($(call is-board-platform-in-list, $(TARGETS_THAT_DONT_SUPPORT_SW_VENC_ROT
 libmm-venc-inc      += hardware/libhardware/include/hardware
 endif
 
-# Common Dependencies
-ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
-libmm-venc-inc      += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
-libmm-venc-add-dep  := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
-endif
-
 # ---------------------------------------------------------------------------------
 # 			Make the Shared library (libOmxVenc)
 # ---------------------------------------------------------------------------------

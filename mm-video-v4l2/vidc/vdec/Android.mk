@@ -78,11 +78,6 @@ libmm-vdec-inc += $(QCOM_MEDIA_ROOT)/libstagefrighthw
 endif
 
 # Common Dependencies
-ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
-libmm-vdec-inc      	+= $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
-libmm-vdec-add-dep := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
-endif
-
 ifeq ($(call is-platform-sdk-version-at-least, 19),true)
 # This feature is enabled for Android KK+
 libmm-vdec-def += -DADAPTIVE_PLAYBACK_SUPPORTED
