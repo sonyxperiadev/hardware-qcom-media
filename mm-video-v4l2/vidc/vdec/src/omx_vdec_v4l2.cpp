@@ -10326,8 +10326,8 @@ bool omx_vdec::alloc_map_ion_memory(OMX_U32 buffer_size, vdec_ion *ion_info, int
         return false;
     }
 
-#ifdef HYPERVISOR
-      flag &= ~ION_FLAG_CACHED;
+#ifdef _HYPERVISOR_
+    flag = 0;
 #endif
     ion_info->ion_alloc_data.flags = flag;
     ion_info->ion_alloc_data.len = buffer_size;
