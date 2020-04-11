@@ -1360,9 +1360,10 @@ static int async_message_process_v4l2 (void *context, void* message)
 bool venc_dev::venc_open(OMX_U32 codec)
 {
     int r;
-    unsigned int alignment = 0,buffer_size = 0, temp =0;
+    unsigned int alignment = 0,buffer_size = 0, temp =0, enable_cma = 0;
     struct v4l2_control control;
     OMX_STRING device_name = (OMX_STRING)"/dev/video33";
+    OMX_STRING cma_device_name = (OMX_STRING)"/dev/video34";
     char property_value[PROPERTY_VALUE_MAX] = {0};
     char platform_name[PROPERTY_VALUE_MAX] = {0};
     FILE *soc_file = NULL;
@@ -1371,6 +1372,10 @@ bool venc_dev::venc_open(OMX_U32 codec)
     property_get("ro.board.platform", platform_name, "0");
     property_get("vendor.vidc.enc.narrow.searchrange", property_value, "0");
     enable_mv_narrow_searchrange = atoi(property_value);
+
+    property_get("vendor.vidc.encoder.cma", property_value, "0");
+    enable_cma = atoi(property_value);
+    DEBUG_PRINT_LOW("encoder cma status %d", enable_cma);
 
     if (!strncmp(platform_name, "msm8610", 7)) {
         device_name = (OMX_STRING)"/dev/video/q6_enc";
@@ -1381,6 +1386,8 @@ bool venc_dev::venc_open(OMX_U32 codec)
         hvfe_cb.handler = async_message_process_v4l2;
         hvfe_cb.context = (void *) this;
         m_nDriver_fd = hypv_open(device_name, O_RDWR, &hvfe_cb);
+    } else if (enable_cma) {
+        m_nDriver_fd = open(cma_device_name, O_RDWR);
     } else {
         m_nDriver_fd = open(device_name, O_RDWR);
     }
