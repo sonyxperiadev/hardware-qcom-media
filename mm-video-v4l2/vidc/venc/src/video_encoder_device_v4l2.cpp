@@ -1360,9 +1360,10 @@ static int async_message_process_v4l2 (void *context, void* message)
 bool venc_dev::venc_open(OMX_U32 codec)
 {
     int r;
-    unsigned int alignment = 0,buffer_size = 0, temp =0;
+    unsigned int alignment = 0,buffer_size = 0, temp =0, enable_cma = 0;
     struct v4l2_control control;
     OMX_STRING device_name = (OMX_STRING)"/dev/video33";
+    OMX_STRING cma_device_name = (OMX_STRING)"/dev/video34";
     char property_value[PROPERTY_VALUE_MAX] = {0};
     char platform_name[PROPERTY_VALUE_MAX] = {0};
     FILE *soc_file = NULL;
@@ -1371,6 +1372,10 @@ bool venc_dev::venc_open(OMX_U32 codec)
     property_get("ro.board.platform", platform_name, "0");
     property_get("vendor.vidc.enc.narrow.searchrange", property_value, "0");
     enable_mv_narrow_searchrange = atoi(property_value);
+
+    property_get("vendor.vidc.encoder.cma", property_value, "0");
+    enable_cma = atoi(property_value);
+    DEBUG_PRINT_LOW("encoder cma status %d", enable_cma);
 
     if (!strncmp(platform_name, "msm8610", 7)) {
         device_name = (OMX_STRING)"/dev/video/q6_enc";
@@ -1381,6 +1386,8 @@ bool venc_dev::venc_open(OMX_U32 codec)
         hvfe_cb.handler = async_message_process_v4l2;
         hvfe_cb.context = (void *) this;
         m_nDriver_fd = hypv_open(device_name, O_RDWR, &hvfe_cb);
+    } else if (enable_cma) {
+        m_nDriver_fd = open(cma_device_name, O_RDWR);
     } else {
         m_nDriver_fd = open(device_name, O_RDWR);
     }
@@ -1660,7 +1667,7 @@ void venc_dev::venc_close()
     if ((int)m_nDriver_fd >= 0) {
         DEBUG_PRINT_HIGH("venc_close E");
 
-        if(eventfd_write(m_poll_efd, 1)) {
+        if(eventfd_write(dup(m_poll_efd), 1)) {
             DEBUG_PRINT_ERROR("eventfd_write failed for fd: %d, errno = %d, force stop async_thread", m_poll_efd, errno);
             async_thread_force_stop = true;
         }
@@ -5835,7 +5842,7 @@ bool venc_dev::venc_set_intra_refresh(OMX_VIDEO_INTRAREFRESHTYPE ir_mode, OMX_U3
         control_mode.value = V4L2_CID_MPEG_VIDC_VIDEO_INTRA_REFRESH_CYCLIC_ADAPTIVE;
     } else if ((ir_mode == OMX_VIDEO_IntraRefreshRandom) &&
             (irMBs < ((m_sVenc_cfg.dvs_width * m_sVenc_cfg.dvs_height)>>8))) {
-        control_mode.value = V4L2_CID_MPEG_VIDC_VIDEO_INTRA_REFRESH_RANDOM;
+        control_mode.value = V4L2_CID_MPEG_VIDC_VIDEO_INTRA_REFRESH_RANDOMMODE;
         control_mbs.id = V4L2_CID_MPEG_VIDC_VIDEO_AIR_MBS;
         control_mbs.value = irMBs;
     } else {
