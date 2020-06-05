@@ -121,6 +121,7 @@ LOCAL_SRC_FILES         += src/common/qc_omx_core.c
 ifneq (,$(filter msm8916 msm8994 msm8909 msm8937 msm8996 msm8992 msm8952 msm8953 msm8998 apq8098_latv sdm660,$(TARGET_BOARD_PLATFORM)))
 LOCAL_SRC_FILES         += src/$(MM_CORE_TARGET)/registry_table_android.c
 else
+$(error "sdm660-libion media HAL: Refusing to include example file qc_registry_table.c, check if TARGET_BOARD_PLATFORM is correct and in the filter above")
 LOCAL_SRC_FILES         += src/$(MM_CORE_TARGET)/qc_registry_table_android.c
 endif
 
